@@ -4,6 +4,9 @@ import { BuildOptions } from "./types/type";
 export function buildDevServer(options: BuildOptions): DevServerConfiguration {
     return {
         port: options.port ?? 3000,
-        open: true
+        open: true,
+        // SPA routing for DevServer
+        historyApiFallback: true,
+        webSocketServer: false,
     }
 }
