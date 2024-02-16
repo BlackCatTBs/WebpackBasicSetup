@@ -1,9 +1,9 @@
 import {createRoot} from "react-dom/client";
-import { App } from "./components/App";
+import { App } from "./components/App/App";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import path from "path";
-import { About } from "./pages/About";
-import { AdminPanel } from "./pages/AdminPanel";
+import { About } from "@/pages/About";
+import { AdminPanel } from "@/pages/AdminPanel";
 import { Suspense } from "react";
 
 const root = document.getElementById('root')

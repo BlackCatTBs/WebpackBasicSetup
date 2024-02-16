@@ -7,6 +7,6 @@ export function buildDevServer(options: BuildOptions): DevServerConfiguration {
         open: true,
         // SPA routing for DevServer
         historyApiFallback: true,
-        webSocketServer: false,
+        // webSocketServer: false,
     }
 }

@@ -1,8 +1,8 @@
 const AdminPanel = () => {
     return (
-        <h1>
+        <h2>
             AdminPanel
-        </h1>
+        </h2>
     )
 }
 

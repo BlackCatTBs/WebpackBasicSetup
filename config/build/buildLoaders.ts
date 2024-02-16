@@ -16,22 +16,55 @@ export function buildLoaders(options: BuildOptions):ModuleOptions['rules'] {
             },
     }
 
+    const assetLoader = {
+        test: /\.(png|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+    }
+
+    const svgLoader = {
+        test: /\.svg$/i,
+        use: [
+            { 
+                loader: '@svgr/webpack',
+                options: { 
+                    icon: true,
+                    svgoConfig: {
+                        plugins: [
+                            {
+                                name: 'convertColors',
+                                params: {
+                                    currentColor: true,
+                                }
+                            }
+                        ]
+                    }
+                } 
+            }
+        ],
+    }
+
+    const tsLoader = {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+    }
+
+    const scssLoader = {
+        test: /\.s[ac]ss$/i,
+        use: [
+        // Creates `style` nodes from JS strings
+        isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+        // Translates CSS into CommonJS
+        cssModuleLoader,
+        // Compiles Sass to CSS
+        "sass-loader",
+        ],
+    }
+
     return [
-        {
-            test: /\.s[ac]ss$/i,
-            use: [
-            // Creates `style` nodes from JS strings
-            isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
-            // Translates CSS into CommonJS
-            cssModuleLoader,
-            // Compiles Sass to CSS
-            "sass-loader",
-            ],
-        },
-        {
-            test: /\.tsx?$/,
-            use: 'ts-loader',
-            exclude: /node_modules/,
-        },
+        assetLoader,
+        svgLoader,
+        scssLoader,
+        tsLoader
     ]
 }
