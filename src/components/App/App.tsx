@@ -16,6 +16,20 @@ export const App = () => {
         setCount(prev => prev - 1)
     }
 
+    const test = (num: number) => {
+        console.log(num)
+    }
+
+    test(123)
+
+    // if (__PLATFORM__ == 'desktop') {
+    //     return <div>DESKTOP</div>
+    // }
+
+    // if (__PLATFORM__ == 'mobile') {
+    //     return <div>MOBILE</div>
+    // }
+
     return (
         <div>
             <h1>Test Page</h1>
@@ -29,6 +43,7 @@ export const App = () => {
             </h2>
             <button className={styles.button} type='button' onClick={increment}>Увеличить</button>
             <button className={styles.button} type='button' onClick={decrement}>Уменьшить</button>
+            <h2>Platform: {__PLATFORM__} Mode: {__MODE__}</h2>
             <div>
                 <h2> Test Image Block </h2>
                 <div>
