@@ -2,11 +2,20 @@ import { ModuleOptions } from "webpack";
 import { BuildOptions } from "./types/type";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import ReactRefreshTypeScript from'react-refresh-typescript';
+import { removeDataTestId } from "../../plugins/removeDataTestId";
 
 export function buildLoaders(options: BuildOptions):ModuleOptions['rules'] {
 
     const isDev = options.mode === 'development';
     const isProd = options.mode === 'production';
+
+    const babelPlugins = [];
+
+    if (isProd) {
+        babelPlugins.push([removeDataTestId, {
+            props: ['data-testid']
+        }])
+    }
 
     const cssModuleLoader = {
         loader: "css-loader",
@@ -44,6 +53,24 @@ export function buildLoaders(options: BuildOptions):ModuleOptions['rules'] {
         ],
     }
 
+    const babelLoader = {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: {
+            loader: "babel-loader",
+            options: {
+                presets: [
+                    '@babel/preset-env',
+                    '@babel/preset-typescript',
+                    ['@babel/preset-react', {
+                        'runtime': 'automatic'
+                    }]
+                ],
+                plugins: babelPlugins.length ? babelPlugins : undefined
+            }
+        }
+    }
+
     const tsLoader = {
         test: /\.tsx?$/,
         exclude: /node_modules/, 
@@ -76,6 +103,7 @@ export function buildLoaders(options: BuildOptions):ModuleOptions['rules'] {
         assetLoader,
         svgLoader,
         scssLoader,
-        tsLoader
+        babelLoader
+        // tsLoader
     ]
 }

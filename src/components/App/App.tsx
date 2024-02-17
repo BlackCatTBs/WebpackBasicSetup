@@ -2,7 +2,6 @@ import { useState } from 'react'
 import styles from './App.module.scss';
 import { Link, Outlet } from 'react-router-dom';
 import user from '@/assets/user.png'
-import avatar from '@/assets/avatar.jpeg'
 import About from '@/assets/about-20-20.svg'
 
 export const App = () => {
@@ -21,6 +20,14 @@ export const App = () => {
     }
 
     test(123)
+
+    const wrapperError = () => {
+        error()
+    }
+
+    const error = () => {
+        throw new Error()
+    }
 
     // if (__PLATFORM__ == 'desktop') {
     //     return <div>DESKTOP</div>
@@ -43,18 +50,18 @@ export const App = () => {
             </h2>
             <button className={styles.button} type='button' onClick={increment}>Увеличить</button>
             <button className={styles.button} type='button' onClick={decrement}>Уменьшить</button>
-            <h2>Platform: {__PLATFORM__} Mode: {__MODE__}</h2>
+            <button type='button' className={styles.buttonError} onClick={() => wrapperError()}>Error</button>
+            <h2 data-testid='test-variables'>Platform: {__PLATFORM__} Mode: {__MODE__}</h2>
             <div>
                 <h2> Test Image Block </h2>
                 <div>
-                    <img src={user} alt="user" />
-                    <img src={avatar} width={50} height={50} alt="avatar" />
+                    <img src={user} alt="user" width={50} height={50} />
                 </div>
                 <div>
                     <About fill={'red'} height={50} width={50}/>
                 </div>
                 <div>
-                    <About style={{color: 'yellow'}} height={50} width={50}/>
+                    <About style={{color: 'blue'}} height={50} width={50}/>
                 </div>
             </div>
             <Outlet />
